@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Spatie\Permission\Models\Role;
+
 class PagesController extends Controller
 {
 

@@ -104,7 +104,7 @@ eval("//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\NEW LARAVEL\Project\dev_metronic_scratchapp_spatie\resources\js\custom.js */"./resources/js/custom.js");
+module.exports = __webpack_require__(/*! C:\NEW LARAVEL\Project\mbm_trade_export_new\resources\js\custom.js */"./resources/js/custom.js");
 
 
 /***/ })

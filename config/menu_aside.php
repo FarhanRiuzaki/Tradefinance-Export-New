@@ -15,7 +15,7 @@ return [
         // Custom
         [
             'section'   => 'Super Admin',
-            'role'      => 'super-admin'
+            'role'      => 'super-admins'
         ],
         [
             'title'     => 'Datatables',
@@ -23,7 +23,7 @@ return [
             'icon'      => 'media/svg/icons/Layout/Layout-horizontal.svg', // or can be 'flaticon-home' or any flaticon-*
             'page'      => 'datatables',
             'new-tab'   => false,
-            'role'      => 'super-admin'
+            'role'      => 'super-admins'
         ],
         [
             'title'     => 'KTDatatable',
@@ -31,7 +31,7 @@ return [
             'icon'      => 'media/svg/icons/Layout/Layout-left-panel-2.svg',
             'page'      => 'ktdatatables',
             'new-tab'   => false,
-            'role'      => 'super-admin'
+            'role'      => 'super-admins'
         ],
         [
             'title'     => 'Select2',
@@ -39,7 +39,7 @@ return [
             'icon'      => 'media/svg/icons/Design/Interselect.svg',
             'page'      => 'select2',
             'new-tab'   => false,
-            'role'      => 'super-admin'
+            'role'      => 'super-admins'
         ],
         [
             'title'     => 'Jquery Mask',
@@ -80,6 +80,87 @@ return [
                     'page'  => 'icons/socicons',
                     'role'  => 'super-admin'
                 ]
+            ]
+        ],
+        [
+            'section'   => 'Master Data',
+            'can'       => ['flag.index','branch.index','currency.index', 'parameter-document.index','master-product.index'],
+        ],
+        [
+            'title'     => 'Master Flag',
+            'root'      => true,
+            'icon'      => 'media/svg/icons/Communication/Flag.svg', // or can be 'flaticon-home' or any flaticon-*
+            'page'      => 'flags',
+            'new-tab'   => false,
+            'can'       => 'flag.index'
+        ],
+        [
+            'title'     => 'Master Branch',
+            'root'      => true,
+            'icon'      => 'media/svg/icons/Home/Building.svg', // or can be 'flaticon-home' or any flaticon-*
+            'page'      => 'branchs',
+            'new-tab'   => false,
+            'can'       => 'branch.index'
+        ],
+        [
+            'title'     => 'Master Currency',
+            'root'      => true,
+            'icon'      => 'media/svg/icons/Shopping/Dollar.svg', // or can be 'flaticon-home' or any flaticon-*
+            'page'      => 'currencies',
+            'new-tab'   => false,
+            'can'       => 'currency.index'
+        ],
+        [
+            'title'     => 'Master Parameter Document',
+            'root'      => true,
+            'icon'      => 'media/svg/icons/Files/File.svg', // or can be 'flaticon-home' or any flaticon-*
+            'page'      => 'parameter-documents',
+            'new-tab'   => false,
+            'can'       => 'parameter-document.index'
+        ],
+        [
+            'title'     => 'Master Product',
+            'root'      => true,
+            'icon'      => 'media/svg/icons/Shopping/Credit-card.svg', // or can be 'flaticon-home' or any flaticon-*
+            'page'      => 'master-products',
+            'new-tab'   => false,
+            'can'       => 'master-product.index'
+        ],
+        [
+            'section'   => 'Transaksi',
+            'can'       => ['permission.index','role.index','user.index', 'product.index','audit.index','advice-maker.index','advice-approver.index', 'upload-document.index'],
+        ],
+        [
+            'title' => 'Advice L/C',
+            'icon'      => 'media/svg/icons/Design/Substract.svg',
+            'custom-class' => 'svg-icon-success',
+            'bullet'    => 'dot',
+            'can'       => ['advice-maker.index','advice-approver.index'],
+            'submenu' => [
+                [
+                    'title' => 'Maker Advice L/C',
+                    'page'  => 'advice-makers',
+                    'can'   => 'advice-maker.index'
+                ],
+                [
+                    'title' => 'Approver Advice L/C',
+                    'page'  => 'advice-approvers',
+                    'can'   => 'advice-approver.index'
+                ],
+            ]
+        ],
+        [
+            'title'     => 'Upload Document',
+            'icon'      => 'media/svg/icons/Files/Group-folders.svg',
+            'custom-class' => 'svg-icon-success',
+            'bullet'    => 'dot',
+            'can'       => ['upload-document.index'],
+            'submenu' => [
+                [
+                    'title' => 'Upload Document',
+                    'page'  => 'upload-documents',
+                    'can'   => 'upload-document.index'
+                ],
             ]
         ],
         [

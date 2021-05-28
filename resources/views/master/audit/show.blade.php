@@ -40,19 +40,54 @@
                         <td width='33%'>Old Values</td>
                         <td width='33%'>New Values</td>
                     </tr>
+                    @php
+                        // dd($old_values, $new_values)
+                    @endphp
                     @forelse ($old_values as $key => $item)
                         @if (@$new_values)
                             @if ($item == $new_values[$key])
                                 <tr>
                                     <td>{{ $key }}</td>
-                                    <td>{{ $item }}</td>
-                                    <td>{{ $new_values[$key] }}</td>
+                                    <td>
+                                        @if (is_array($item))
+                                            @foreach ($item as $val)
+                                                {{ $val }} <br>
+                                            @endforeach
+                                        @else
+                                            {{ $item }}
+                                        @endif
+                                    </td>
+                                    <td class="bg-warning text-white">
+                                        @if (is_array($new_values[$key]))
+                                            @foreach ($new_values[$key] as $val)
+                                                {{ $val }} <br>
+                                            @endforeach
+                                        @else
+                                            {{ $new_values[$key] }}
+                                        @endif
+                                    </td>
                                 </tr>
                             @else
                                 <tr>
                                     <td>{{ $key }}</td>
-                                    <td class="bg-warning text-white">{{ $item }}</td>
-                                    <td class="bg-warning text-white">{{ $new_values[$key] }}</td>
+                                    <td class="bg-warning text-white">
+                                        @if (is_array($item))
+                                            @foreach ($item as $val)
+                                                {{ $val }} <br>
+                                            @endforeach
+                                        @else
+                                            {{ $item }}
+                                        @endif
+                                        </td>
+                                    <td class="bg-warning text-white">
+                                        @if (is_array($new_values[$key]))
+                                            @foreach ($new_values[$key] as $val)
+                                                {{ $val }} <br>
+                                            @endforeach
+                                        @else
+                                            {{ $new_values[$key] }}
+                                        @endif
+                                    </td>
                                 </tr>
                             @endif
                         @else
@@ -67,7 +102,7 @@
                             <tr>
                                 <td>{{ $key }}</td>
                                 <td class="text-center">-</td>
-                                <td>{{ $item }}</td>
+                                <td>{!! $item !!}</td>
                             </tr>
                         @endforeach
                     @endforelse

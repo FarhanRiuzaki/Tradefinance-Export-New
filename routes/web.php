@@ -41,12 +41,19 @@ Route::get('/icons/svg', 'PagesController@svg');
 Route::get('/quick-search', 'PagesController@quickSearch')->name('quick-search');
 
 // API Controller, for custom data
-Route::post('api/upload-media'  ,'ApiController@uploadMedia')->name('apis.uploadMedia');
-Route::get('api/dt-user'    ,'ApiController@DTUser')->name('apis.DTUser');
+Route::post('/upload-media'  ,'ApiController@uploadMedia')->name('apis.uploadMedia');
+Route::get('/dt-user'    ,'ApiController@DTUser')->name('apis.DTUser');
+Route::get('/data-cif'    ,'ApiController@dataCif')->name('apis.dataCif');
+Route::get('/document-parameter'    ,'ApiController@documentParameter')->name('apis.documentParameter');
+
+Route::get('/pdf-notification-letter/{id}'    ,'ApiController@generateNotificationLetter')->name('apis.notificationLetter');
+Route::get('/pdf-nota-debet/{id}'    ,'ApiController@generateNotaDebet')->name('apis.notaDebet');
 
 // Custom Route [GET, POST, PATCH] taro disini
 Route::get('permissions/datatable','PermissionController@datatable')->name('permissions.datatable');
 Route::get('users/update-status/{id}','UserController@updateStatus')->name('users.updateStatus'); //update status user
+Route::get('advice-makers/index-summary'    ,'Transaction\AdviceMakerController@indexSummary')->name('advice-makers.indexSummary');
+Route::get('advice-makers/edit-summary/{id}'    ,'Transaction\AdviceMakerController@editSummary')->name('advice-makers.editSummary');
 
 // Master Application Route [Resource]
 Route::resource('users','UserController');
@@ -57,3 +64,19 @@ Route::resource('bugs','BugController');
 
 // Custom
 Route::resource('products','ProductController');
+
+// Master Data Tradefinance Export
+Route::resource('flags','Master\MasterFlagController');
+Route::resource('branchs','Master\MasterBranchController');
+Route::resource('currencies','Master\MasterCurrencyController');
+Route::resource('parameter-documents','Master\MasterParameterDocumentController');
+Route::resource('master-products','Master\MasterProductController');
+
+// Custom Route [GET, POST, PATCH] taro disini
+Route::get('advice-makers/datatable','Transaction\AdviceMakerController@resource')->name('advice-makers.datatable');
+Route::get('upload-documents/sor/{id}','Transaction\UploadDocumentController@indexSor')->name('upload-documents.indexSor');
+
+// Route Transaksi
+Route::resource('advice-makers','Transaction\AdviceMakerController');
+Route::resource('advice-approvers','Transaction\AdviceApproverController');
+Route::resource('upload-documents','Transaction\UploadDocumentController');

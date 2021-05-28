@@ -20,7 +20,7 @@
                             <th width='30%'>Date</th>
                             <th>Event</th>
                             <th>Model</th>
-                            <th>Record</th>
+                            <th>Record ID</th>
                             <th>Done By</th>
                             <th width='125px'>Action</th>
                         </tr>

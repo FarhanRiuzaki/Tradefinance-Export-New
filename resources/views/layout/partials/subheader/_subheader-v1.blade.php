@@ -91,12 +91,30 @@
                                                 {{ $item['title'] }}
                                         </button>
                                     @else
-                                        <a href="{{ route($item['route']) }}" class="btn font-weight-bold btn-sm px-3 font-size-base ml-2 {{ $class }}">
-                                        @if (@$item['svg'])
-                                            {{ Metronic::getSVG("media/svg/icons/" . $item['svg'], "svg-icon svg-icon-md") }}
+                                        @if (@$item['type'])
+                                            <button type="{{ $item['type'] }}" class="btn font-weight-bold btn-sm px-3 font-size-base ml-2 {{ $class }}">
+                                                @if (@$item['svg'])
+                                                    {{ Metronic::getSVG("media/svg/icons/" . $item['svg'], "svg-icon svg-icon-md") }}
+                                                @endif
+                                                    {{ $item['title'] }}
+                                            </button>
+                                        @else
+                                            @if (@$item['request'])
+                                                <a href="{{ route($item['route'], $item['request']) }}" class="btn font-weight-bold btn-sm px-3 font-size-base ml-2 {{ $class }}">
+                                                @if (@$item['svg'])
+                                                    {{ Metronic::getSVG("media/svg/icons/" . $item['svg'], "svg-icon svg-icon-md") }}
+                                                @endif
+                                                    {{ $item['title'] }}
+                                                </a>
+                                            @else
+                                                <a href="{{ route($item['route']) }}" class="btn font-weight-bold btn-sm px-3 font-size-base ml-2 {{ $class }}">
+                                                @if (@$item['svg'])
+                                                    {{ Metronic::getSVG("media/svg/icons/" . $item['svg'], "svg-icon svg-icon-md") }}
+                                                @endif
+                                                    {{ $item['title'] }}
+                                                </a>
+                                            @endif
                                         @endif
-                                            {{ $item['title'] }}
-                                        </a>
                                     @endif
 
                                 @endcan

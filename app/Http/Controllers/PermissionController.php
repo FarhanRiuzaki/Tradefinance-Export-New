@@ -8,6 +8,7 @@ use App\Classes\Theme\Metronic;
 use Illuminate\Support\Facades\Crypt;
 use Spatie\Permission\Models\Permission;
 use Illuminate\Support\Facades\DB;
+use Spatie\Permission\Models\Role;
 
 class PermissionController extends Controller
 {
@@ -60,6 +61,9 @@ class PermissionController extends Controller
     {
         $requestData    = $request->all();
         Permission::findOrCreate($requestData['permission']);
+
+        $role = Role::findById(2);
+        $role->syncPermissions(Permission::all());
 
         return redirect()->route('permissions.index')
         ->with(toaster('Permissions created successfully', 'success', 'Success'));

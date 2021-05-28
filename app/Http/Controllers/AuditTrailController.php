@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use OwenIt\Auditing\Models\Audit;
 use Yajra\DataTables\DataTables;
+use Illuminate\Support\Str;
 
 class AuditTrailController extends Controller
 {
@@ -40,14 +41,24 @@ class AuditTrailController extends Controller
                 }
             })
             ->addColumn('record', function($data){
-                if(isset($data->auditable)){
-                    $route = explode('\\', $data->auditable_type);
-                    $route = end($route);
-                    $route = strtolower($route) . 's';
-                    return "<a href='". route($route.'.show', Crypt::encrypt($data->auditable_id))."'>".$data->auditable_id."</a>";
-                }else{
-                    return $data->auditable_id;
-                }
+                // if(isset($data->auditable)){
+                //     $route = explode('\\', $data->auditable_type);
+                //     $route = end($route);
+                //     $route = str_replace('Master', '', $route);
+                //     $route = Str::lower($route);
+                //     // $route = Str::plural($route);
+                //     if (substr($route, -1) == 'y') {
+                //         $route = substr($route, 0,-1) . 'ies';
+                //     }else{
+                //         $route = $route . 's';
+                //     }
+                //     // dd();
+                //     return "<a href='". route($route.'.show', Crypt::encrypt($data->auditable_id))."'>".$data->auditable_id."</a>";
+                // }else{
+                //     return $data->auditable_id;
+                // }
+                return $data->auditable_id;
+
             })
             ->addColumn('event', function($data)
             {

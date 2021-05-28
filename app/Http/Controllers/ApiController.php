@@ -3,10 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Classes\Theme\Metronic;
+use App\Models\Master\MasterDocumentParameter;
+use App\Models\Transaction\Transaction;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\DataTables;
+use PDF;
 
 class ApiController extends Controller
 {
@@ -78,5 +82,56 @@ class ApiController extends Controller
             ->rawColumns(['roles','action','status', 'avatar'])
             ->make(true);
         }
+    }
+
+    public function dataCif(Request $req)
+    {
+        $cif = DB::table('master_cifmast')
+            ->where('CIFNO', 'LIKE', '%' . $req->name .'%')
+            ->orWhere('CFSNME', 'LIKE', '%' . $req->name .'%')
+            ->orderBy('CIFNO', 'ASC')
+            ->get();
+
+        $data = [];
+        foreach($cif as $key => $val){
+            $data[$key]['code'] = $val->CIFNO;
+            $data[$key]['name'] = $val->CFSNME;
+            $data[$key]['address'] = $val->CFNA2 . ' '. $val->CFNA3 . ' ' . $val->CFNA4 . ' ' . $val->CFNA5;
+            $data[$key]['address'] = substr($data[$key]['address'], 1, 30);
+
+            $data[$key]['cfna1']    = $val->CFNA1;
+            $data[$key]['telp']     = $val->CFTLPN;
+            $data[$key]['api']      = $val->CFAPI;
+            $data[$key]['npwp']     = $val->CFNPWP;
+            $data[$key]['memo']     = $val->MEMO;
+         }
+
+        return response()->json($data);
+    }
+
+    public function generateNotificationLetter($id)
+    {
+        $id     = Crypt::decrypt($id);
+        $record = Transaction::with('mt700','mt710', 'mt707')->find($id);
+    	$pdf    = PDF::loadview('transaction.PDF.notification-letter',compact('record'));
+    	// return $pdf->download('Notification Letter - ' . $record->code . ' - ' . date('Ymd') . '.pdf');
+        return $pdf->stream('Notification Letter - ' . $record->code . ' - ' . date('Ymd') . '.pdf');
+    }
+
+    public function generateNotaDebet($id)
+    {
+        $id     = Crypt::decrypt($id);
+        $record = Transaction::with('mt700', 'branchs','cifmast','mt707')->find($id);
+    	$pdf    = PDF::loadview('transaction.PDF.nota-debet',compact('record'));
+        // return $pdf->download('Nota Debet - ' . $record->code . ' - ' . date('Ymd') . '.pdf');
+        return $pdf->stream('Nota Debet - ' . $record->code . ' - ' . date('Ymd') . '.pdf');
+        // return view('advise.maker.NotifLetter', compact('record'));
+    }
+
+    public function documentParameter()
+    {
+        $param          = MasterDocumentParameter::get();
+
+        return response()->json($param);
     }
 }

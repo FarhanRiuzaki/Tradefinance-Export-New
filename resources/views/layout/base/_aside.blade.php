@@ -2,6 +2,7 @@
 
 @php
     $kt_logo_image = 'logo-light.png';
+    // $kt_logo_image = 'logo-letter-6.png';
 @endphp
 
 @if (config('layout.brand.self.theme') === 'light')
@@ -9,14 +10,17 @@
 @elseif (config('layout.brand.self.theme') === 'dark')
     @php $kt_logo_image = 'logo-light.png' @endphp
 @endif
-
+@php
+    // $kt_logo_image = 'logo-light.png';
+    $kt_logo_image = 'logo-letter-6.png';
+@endphp
 <div class="aside aside-left {{ Metronic::printClasses('aside', false) }} d-flex flex-column flex-row-auto" id="kt_aside">
 
     {{-- Brand --}}
     <div class="brand flex-column-auto {{ Metronic::printClasses('brand', false) }}" id="kt_brand">
         <div class="brand-logo">
             <a href="{{ url('/') }}">
-                <img alt="{{ config('app.name') }}" src="{{ asset('media/logos/'.$kt_logo_image) }}"/>
+                <img alt="{{ config('app.name') }}" src="{{ asset('media/logos/'.$kt_logo_image) }}" style="max-height: 30px"/>
             </a>
         </div>
 
